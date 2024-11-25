@@ -1,4 +1,4 @@
-use catalogocosmeticos;
+USE catalogocosmeticos;
 CREATE TABLE IF NOT EXISTS cosmeticos(
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR (50),
