@@ -1,4 +1,3 @@
-CREATE DATABASE IF NOT EXISTS catalogo_cosmeticos;
 USE catalogo_cosmeticos;
 CREATE TABLE IF NOT EXISTS cosmeticos(
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
