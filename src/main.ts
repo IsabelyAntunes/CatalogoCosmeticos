@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import mysql from 'mysql'
+import mysql from 'mysql2/promise'
 
 const app = express()
 
@@ -10,7 +10,7 @@ app.use(cors())
 
 app.get("/cosmeticos",async(req,res)=>{
     try{
-        const conexao = await mysql.crreateConnection({
+        const conexao = await mysql.createConnection({
             host:process.env.dbhost?process.env.dbhost:"localhost",
             user: process.env.dbuser?process.env.dbuser:"root",
             password:process.env.dbpassword?process.env.password:"",
@@ -36,10 +36,11 @@ app.post("/cosmeticos",async(req,res)=>{
             port: process.env.dbport?parseInt(process.env.dbport):3306
         })
         const {id, nome, descricao, valor, imagem} = req.body
-        const [result, fields] = await conexao.query("INSERT INTO cosmeticos values (?,?,?,?)",
+        const [result, fields] = 
+          await conexao.query("INSERT INTO cosmeticos values (?,?,?,?,?)",
             [id,nome,descricao,valor,imagem])
             await conexao.end()
-        res.send(result)
+        res.status(200).send(result)
     }catch(e){
         console.log(e)
         res.status(500).send("Erro do servidor")
