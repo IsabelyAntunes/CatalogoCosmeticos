@@ -1,4 +1,16 @@
 {
+  "name": "catalogocosmeticos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest -w",
+    "dev": "tsx watch src/main.ts",
+    "build":"npm install && tsc",
+    "start": "node ./dist/main.js"
+  },
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
@@ -12,17 +24,5 @@
     "express": "^4.21.1",
     "mysql2": "^3.11.4",
     "react-router-dom": "^7.0.1"
-  },
-  "name": "catalogocosmeticos",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "vitest -w",
-    "dev": "tsx watch src/main.ts",
-    "build":"npm install && tsc",
-    "start": "node ./dist/main.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  }
 }
