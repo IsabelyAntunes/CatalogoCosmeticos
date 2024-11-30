@@ -8,7 +8,7 @@ app.use(express.json())
 
 app.use(cors())
 
-app.get("/cosmeticos",async(req,res)=>{
+app.get("/produtos",async(req,res)=>{
 
     try{
         const conexao = await mysql.createConnection({
@@ -19,7 +19,7 @@ app.get("/cosmeticos",async(req,res)=>{
             port:process.env.dbport?parseInt(process.env.dbport):3306
         })
         
-        const [result,fields]  = await conexao.query("SELECT * FROM cosmeticos")
+        const [result,fields]  = await conexao.query("SELECT * FROM produtos")
         await conexao.end()
 
         res.send(result)
@@ -28,7 +28,7 @@ app.get("/cosmeticos",async(req,res)=>{
     }  
 })
 
-app.post("/cosmeticos",async(req,res)=>{
+app.post("/produtos",async(req,res)=>{
     try{
         const conexao = await mysql.createConnection({
             host: process.env.dbhost?process.env.dbhost:"localhost",
