@@ -12,15 +12,3 @@ INSERT INTO cosmeticos VALUES
 (3, 'Corretivo Líquido Maybelline', 'Cobre olheiras, reduz inchaço e dura o dia todo.', 62.70, 'https://epocacosmeticos.vteximg.com.br/arquivos/ids/491026-450-450/corretivo-para-area-dos-olhos-maybelline---instant-age-eraser--1-.jpg?v=637895124045500000');
 
 
-CREATE DATABASE loja_cosmeticos;
-USE loja_cosmeticos;
-CREATE TABLE IF NOT EXISTS lojas(
-id BIGINT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(50),
-endereco VARCHAR(50),
-imagem VARCHAR(300)
-);
-
-INSERT INTO lojas VALUES
-(1, 'Zane Cosméticos', 'Av. Weimar Gonçalves Tôrres, 371 - Centro', '');
-(2, 'Adriana Cosméticos', 'R. Alagoas, 05 - Centro', ''),
