@@ -1,8 +1,8 @@
 USE catalogo_cosmeticos;
 CREATE TABLE IF NOT EXISTS cosmeticos(
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR (50),
-    descricao VARCHAR (50),
+    nome VARCHAR (100),
+    descricao VARCHAR (300),
     valor DECIMAL (10,2),
     imagem VARCHAR(300)
 );
