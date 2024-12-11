@@ -51,6 +51,47 @@ app.post("/produtos",async(req,res)=>{
 })
 
 
+app.get("/lojas", async(req,res)=>{
+
+    try{
+        const conexao = await mysql.createConnection({
+            host: process.env.dbhost?process.env.dbhost:"localhost",
+            user:process.env.dbuser?process.env.dbuser:"root",
+            password:process.env.dbpassword?process.env.dbpassword:"",
+            database:process.env.dbname?process.env.dbname:"catalogo_cosmeticos",
+            port:process.env.dbport?parseInt(process.env.dbport):3306
+        })
+
+        const [result,fields] = await conexao.query("SELECT * FROM lojas")
+        await conexao.end()
+
+        res.send(result)
+    }catch(e){
+        console.log(e)
+        res.status(500).send("Erro do servidor")
+    }
+})
+
+app.post("/lojas",async(req,res)=>{
+    try{
+        const conexao = await mysql.createConnection({
+            host: process.env.dbhost?process.env.dbhost:"localhost",
+            user:process.env.dbuser?process.env.dbuser:"root",
+            password:process.env.dbpassword?process.env.dbpassword:"",
+            database:process.env.dbname?process.env.dbname:"lojas_cosmeticos",
+            port:process.env.dbport?parseInt(process.env.dbport):3306
+        })
+        const {id,nome,endereco,imagem} = req.body
+        const [result,fields] = 
+            await conexao.query("INSERT INTO lojas VALUES (?,?,?,?)",
+                [id,nome,endereco,imagem])
+        await conexao.end()
+        res.status(200).send(result)
+    }catch(e){
+        console.log(e)
+        res.status(500).send("Erro do servidor")
+    }
+})
 
 
 app.listen(8000,()=>{
