@@ -19,7 +19,7 @@ app.get("/produtos",async(req,res)=>{
             port:process.env.dbport?parseInt(process.env.dbport):3306
         })
         
-        const [result,fields]  = await conexao.query("SELECT * FROM produtos")
+        const [result,fields]  = await conexao.query("SELECT * FROM cosmeticos")
         await conexao.end()
 
         res.send(result)
@@ -40,7 +40,7 @@ app.post("/produtos",async(req,res)=>{
         })
         const {id,nome,descricao,valor,imagem} = req.body
         const [result,fields]  = 
-            await conexao.query("INSERT INTO produtos VALUES (?,?,?,?,?)",
+            await conexao.query("INSERT INTO cosmeticos VALUES (?,?,?,?,?)",
                 [id,nome,descricao,valor,imagem])
         await conexao.end()
         res.status(200).send(result)
