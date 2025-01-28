@@ -61,4 +61,3 @@ app.post("/produtos",async(req,res)=>{
 app.listen(8000,()=>{
     console.log("SERVIDOR INICIADO NA PORTA 8000")
 })
-
