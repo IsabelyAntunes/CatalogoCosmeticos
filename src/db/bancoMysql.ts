@@ -13,7 +13,7 @@ class BancoMysql {
             host: process.env.dbhost ? process.env.dbhost : "localhost",
             user: process.env.dbuser ? process.env.dbuser : "root",
             password: process.env.dbpassword ? process.env.dbpassword : "",
-            database: process.env.dbname ? process.env.dbname : "banco1022b",
+            database: process.env.dbname ? process.env.dbname : "catalogo_cosmeticos",
             port: process.env.dbport ? parseInt(process.env.dbport) : 3306
         });
     }
@@ -53,6 +53,41 @@ class BancoMysql {
         const parametro = [produto.nome,produto.descricao,produto.valor,produto.imagem,id]
         const [result, fields] = await conn.query(sqlQuery,parametro);
         return result
+    }
+
+    async listarLojas() {
+        const conn = await this.getConnection();
+        const [result] = await conn.query("SELECT * FROM lojas");
+        return result;
+    }
+
+    async inserirLoja(loja: { id: string, nome: string, endereco: string, telefone: string, email: string }) {
+        const conn = await this.getConnection();
+        const sqlQuery = "INSERT INTO lojas (id, nome, endereco, telefone, email) VALUES (?, ?, ?, ?, ?)";
+        const parametros = [loja.id, loja.nome, loja.endereco, loja.telefone, loja.email];
+        const [result] = await conn.query(sqlQuery, parametros);
+        return result;
+    }
+
+    async excluirLoja(id: string) {
+        const conn = await this.getConnection();
+        const sqlQuery = "DELETE FROM lojas WHERE id = ?";
+        const [result] = await conn.query(sqlQuery, [id]);
+        return result;
+    }
+
+    async alterarLoja(id: string, loja: { nome?: string, endereco?: string, telefone?: string, email?: string }) {
+        const conn = await this.getConnection();
+        const sqlQuery = "UPDATE lojas SET nome=?, endereco=?, telefone=?, email=? WHERE id=?";
+        const parametros = [loja.nome, loja.endereco, loja.telefone, loja.email, id];
+        const [result] = await conn.query(sqlQuery, parametros);
+        return result;
+    }
+
+    async listarLojaPorId(id: string) {
+        const conn = await this.getConnection();
+        const [result] = await conn.query("SELECT * FROM lojas WHERE id = ?", [id]);
+        return result;
     }
 }
 

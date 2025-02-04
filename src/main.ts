@@ -93,6 +93,79 @@ app.put("/produtos/:id",async (req,res)=>{
 })
 
 
+app.get("/lojas", async (req, res) => {
+    try {
+        const banco = new BancoMongo();
+        const result = await banco.listarLojas();
+        console.log(result);
+        await banco.end();
+        res.send(result);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erro do servidor");
+    }
+});
+
+// Listar loja por ID
+app.get("/lojas/:id", async (req, res) => {
+    try {
+        const banco = new BancoMongo();
+        const result = await banco.listarLojaPorId(req.params.id);
+        console.log(result);
+        await banco.end();
+        res.send(result);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erro do servidor");
+    }
+});
+
+// Cadastrar nova loja
+app.post("/lojas", async (req, res) => {
+    try {
+        const { id, nome, endereco, telefone, email } = req.body;
+        console.log(id, nome, endereco, telefone, email);
+        const banco = new BancoMongo();
+        const loja = { id: parseInt(id), nome, endereco, telefone, email };
+        const result = await banco.inserirLoja(loja);
+        console.log(result);
+        await banco.end();
+        res.status(200).send(result);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erro do servidor");
+    }
+});
+
+// Excluir loja por ID
+app.delete("/lojas/:id", async (req, res) => {
+    console.log("Tentando excluir a loja de id:", req.params.id);
+    try {
+        const banco = new BancoMongo();
+        const result = await banco.excluirLoja(req.params.id);
+        res.status(200).send(result);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erro do servidor");
+    }
+});
+
+// Atualizar loja por ID
+app.put("/lojas/:id", async (req, res) => {
+    console.log("Tentando alterar a loja de id:", req.params.id);
+    try {
+        const { nome, endereco, telefone } = req.body;
+        const loja = { nome, endereco, telefone };
+        const banco = new BancoMongo();
+        const result = await banco.alterarLoja(req.params.id, loja);
+        res.status(200).send(result);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send("Erro do servidor");
+    }
+});
+
+
 
 //INICIAR O SERVIDOR
 app.listen(8000,()=>{
